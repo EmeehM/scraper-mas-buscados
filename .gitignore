@@ -1,0 +1,7 @@
+
+
+notas.md
+.env
+__pycache__/
+.idea/
+*.log
