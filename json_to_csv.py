@@ -43,6 +43,10 @@ def json_to_csv(
     unique_fields: Iterable[str] | None = None,
     encoding: str = "utf-8"
 ) -> None:
+    """
+    Convierte JSON/dict/lista de dicts a CSV respetando
+    el orden original de los diccionarios.
+    """
 
     if isinstance(data, str):
         data = json.loads(data)
@@ -53,13 +57,17 @@ def json_to_csv(
     if not isinstance(data, list) or not data:
         raise ValueError("JSON inválido")
 
-    fieldnames = set()
-    for row in data:
+    # 🔹 Respetar orden del primer diccionario
+    fieldnames = list(data[0].keys())
+
+    # 🔹 Agregar claves nuevas manteniendo orden
+    for row in data[1:]:
         if not isinstance(row, dict):
             raise ValueError("JSON inválido")
-        fieldnames.update(row.keys())
 
-    fieldnames = sorted(fieldnames)
+        for key in row.keys():
+            if key not in fieldnames:
+                fieldnames.append(key)
 
     path = Path(output_file)
     file_exists = path.exists()

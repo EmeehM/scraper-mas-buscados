@@ -5,3 +5,5 @@ notas.md
 __pycache__/
 .idea/
 *.log
+*.xlsx
+*.csv
