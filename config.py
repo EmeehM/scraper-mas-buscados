@@ -1,7 +1,7 @@
 import os
+from dotenv import load_dotenv
 
-
-
+load_dotenv(".env")
 PROXY = os.environ.get("PROXY")
 PROXIES = {
     'http': PROXY,
